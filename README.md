@@ -20,7 +20,7 @@ Ensure you have the following installed:
 
 ### Installation
 
-After you cloned the repository, make sure to install dependencies. I used NPM package manager however you can use YARN, PNPM etc. as well
+After you cloned the repository, make sure to install dependencies. I used **npm** package manager however you can use **yarn**, **pnpm** etc. as well.
 
 ```bash
 $ npm install
@@ -32,7 +32,9 @@ Since there is not a production project I've run my PostgreSQL database locally 
 
 ```bash
 $ docker pull postgres
+```
 
+```bash
 $ docker run --name postgres -e POSTGRES_PASSWORD=postgres -p 5433:5432 -d postgres
 ```
 
@@ -40,9 +42,9 @@ $ docker run --name postgres -e POSTGRES_PASSWORD=postgres -p 5433:5432 -d postg
 
 After our database instance is ready to use make sure you've configured your .env file
 
-All required variables and its values can be found in .env.example file
+All required variables and its values can be found in **.env.example** file
 
-Note: Since you are running PostgreSQL database in docker container locally, there is no threat of leakage of sensitive secrets
+> Note: Since you are running PostgreSQL database in docker container locally, there is no threat of leakage of sensitive secrets.
 
 ### Apply migrations on your database
 
@@ -78,4 +80,4 @@ $ npm run start:dev
 
 ### API Endpoints
 
-TODO add swagger doc here
+After you application is running you can find its OpenAPI documentation via [http://localhost:3000/api](http://localhost:3000/api) endpoint (Assuming your application is running on this port).
