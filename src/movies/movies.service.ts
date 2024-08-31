@@ -37,7 +37,7 @@ export class MoviesService {
   async updateMovieById(id: number, updateMovie: UpdateMovieDto) {
     const movie = await this.moviesRepository.getById(id);
     if (!movie) {
-      throw new HttpException('Movie not exist', HttpStatus.NOT_FOUND);
+      throw new HttpException('Movie not exists', HttpStatus.NOT_FOUND);
     }
     if (updateMovie.genres) {
       const { genres, ...movie } = updateMovie;
@@ -67,7 +67,7 @@ export class MoviesService {
   async deleteMoviebyId(id: number) {
     const movie = await this.moviesRepository.getById(id);
     if (!movie) {
-      throw new HttpException('Movie not exist', HttpStatus.NOT_FOUND);
+      throw new HttpException('Movie not exists', HttpStatus.NOT_FOUND);
     }
 
     await this.moviesRepository.deleteById(id);
