@@ -50,6 +50,14 @@ Note: Since you are running PostgreSQL database in docker container locally, the
 $ npx prisma migrate dev
 ```
 
+### Seed your database
+
+If you don't want to start using the app from scratch, you can seed your database with some famous genres and movies:
+
+```bash
+$ npm run seed
+```
+
 ### Run the project
 
 ```bash
