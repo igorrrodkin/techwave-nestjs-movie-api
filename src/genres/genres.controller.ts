@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UsePipes, ValidationPipe } from "@nestjs/common";
-import { Genre, Movie } from "@prisma/client";
 import { GenresService } from "./genres.service";
 import { CreateGenreDto } from "./dto/createGenre.dto";
 
