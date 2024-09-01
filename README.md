@@ -48,7 +48,7 @@ All required variables and its values can be found in **.env.example** file
 
 ## Database
 
-Application isolates database-access-level in order to follow DRY principles and reuse existing queries. All queries are distributed across repositories depending on the parts of the application and tables that are used in the query.
+Application isolates data-access-level in order to follow DRY principles and reuse existing queries. All queries are distributed across repositories depending on the parts of the application and tables that are used in the query.
 Prisma ORM is used for running schema migrations and querying your database.
 
 ### Migrations
@@ -63,7 +63,7 @@ $ npx prisma migrate dev
 
 Since Prisma ORM doesn't support trigram-based indexes yet, this migration is written manually.
 
-> Potential bottlenecks: Prisma doesn't provide any functionality to apply custom migrations with defining database resources created by them in order to make database state and prisma schema in sync. As a result, in case when we make some schema changes, in addition with migrations that follows the schema, Prisma will generate "reverse" migrations for our custom migrations
+> Potential bottleneck: Prisma doesn't provide any functionality to apply custom migrations with defining database resources created by them in order to make database state and prisma schema in sync. As a result, in case when we make some schema changes, in addition with migrations that follows the schema, Prisma will generate "reverse" migrations for our custom migrations
 
 ```bash
 $ npm run migrate-custom
