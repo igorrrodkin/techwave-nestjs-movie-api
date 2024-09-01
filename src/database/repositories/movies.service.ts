@@ -3,6 +3,7 @@ import { PrismaService } from "../prisma.service";
 import { CreateMovieDto } from "src/movies/dto/createMovie.dto";
 import { UpdateMovieDto } from "src/movies/dto/updateMovie.dto";
 import { SearchMoviesDto } from "src/movies/dto/searchMovies.dto";
+import { Genre } from "@prisma/client";
 
 @Injectable()
 export class MoviesRepository {
@@ -26,8 +27,11 @@ export class MoviesRepository {
             };
         });
     }
-    async insert(movie: CreateMovieDto, genreIds: { genreId: number }[]) {
-        const { genres, ...rest } = movie;
+    async insert(movie: CreateMovieDto, genres: Genre[]) {
+        const genreIds = genres.map((g) => {
+            return { genreId: g.id };
+        });
+        const { genres: listOfGenres, ...rest } = movie;
         const { id } = await this.prisma.movie.create({
             data: {
                 ...rest,
@@ -80,7 +84,10 @@ export class MoviesRepository {
         return deleted.id;
     }
 
-    async updateByIdWithGenres(id: number, movie: UpdateMovieDto, genreIds: { genreId: number }[]) {
+    async updateByIdWithGenres(id: number, movie: UpdateMovieDto, genres: Genre[]) {
+        const genreIds = genres.map((g) => {
+            return { genreId: g.id };
+        });
         const updated = await this.prisma.movie.update({
             where: {
                 id

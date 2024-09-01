@@ -22,7 +22,7 @@ export class MoviesController {
 
     @Get()
     @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-    getAll(@Query("perPage", ParseIntPipe) perPage: number = 10, @Query("page", ParseIntPipe) page: number = 1) {
+    getAll(@Query("perPage", ParseIntPipe) perPage: number, @Query("page", ParseIntPipe) page: number) {
         return this.moviesService.getAllMovies(page, perPage);
     }
 

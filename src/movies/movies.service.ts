@@ -13,21 +13,21 @@ export class MoviesService {
     ) {}
 
     async getAllMovies(page: number, perPage: number) {
+        if (page <= 0 || perPage <= 0) {
+            throw new HttpException("Page and perPage params should be above 0", HttpStatus.BAD_REQUEST);
+        }
         const movies = await this.moviesRepository.getAll(page, perPage);
         return movies;
     }
 
     async addMovie(movie: CreateMovieDto) {
-        const genresEntities = await this.genreRepository.getByGenres(movie.genres);
+        const genresDatabaseEntities = await this.genreRepository.getByGenres(movie.genres);
 
         // Mismatch between genres that were sent in request and database. At least one genre not exist in the db
-        if (genresEntities.length !== movie.genres.length) {
+        if (genresDatabaseEntities.length !== movie.genres.length) {
             throw new HttpException(`Invalid genres provided. At least one genre not exist`, HttpStatus.BAD_REQUEST);
         }
-        const genreIds = genresEntities.map((g) => {
-            return { genreId: g.id };
-        });
-        const movieId = await this.moviesRepository.insert(movie, genreIds);
+        const movieId = await this.moviesRepository.insert(movie, genresDatabaseEntities);
         return { id: movieId };
     }
 
@@ -38,19 +38,16 @@ export class MoviesService {
         }
         if (updateMovie.genres) {
             const { genres, ...movie } = updateMovie;
-            const genresEntities = await this.genreRepository.getByGenres(updateMovie.genres);
+            const genresDatabaseEntities = await this.genreRepository.getByGenres(updateMovie.genres);
             // Mismatch between genres that were sent in request and database. At least one genre not exist in the db
-            if (genresEntities.length !== updateMovie.genres.length) {
+            if (genresDatabaseEntities.length !== updateMovie.genres.length) {
                 throw new HttpException(
                     `Invalid genres provided. At least one genre not exist`,
                     HttpStatus.BAD_REQUEST
                 );
             }
 
-            const genreIds = genresEntities.map((g) => {
-                return { genreId: g.id };
-            });
-            await this.moviesRepository.updateByIdWithGenres(id, movie, genreIds);
+            await this.moviesRepository.updateByIdWithGenres(id, movie, genresDatabaseEntities);
             return { id };
         }
 
