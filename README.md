@@ -14,9 +14,9 @@ TechWave Movie API is a simple movie management service built using NestJS. This
 
 Ensure you have the following installed:
 
-- Node.js
-- NPM
-- Docker
+-   Node.js
+-   NPM
+-   Docker
 
 ### Installation
 
@@ -46,13 +46,30 @@ All required variables and its values can be found in **.env.example** file
 
 > Note: Since you are running PostgreSQL database in docker container locally, there is no threat of leakage of sensitive secrets.
 
-### Apply migrations on your database
+## Database
+
+Application isolates database-access-level in order to follow DRY principles and reuse existing queries. All queries are distributed across repositories depending on the parts of the application and tables that are used in the query.
+Prisma ORM is used for running schema migrations and querying your database.
+
+### Migrations
+
+#### Apply migrations on your database
 
 ```bash
 $ npx prisma migrate dev
 ```
 
-### Seed your database
+#### Custom migrations
+
+Since Prisma ORM doesn't support trigram-based indexes yet, this migration is written manually.
+
+> Potential bottlenecks: Prisma doesn't provide any functionality to apply custom migrations with defining database resources created by them in order to make database state and prisma schema in sync. As a result, in case when we make some schema changes, in addition with migrations that follows the schema, Prisma will generate "reverse" migrations for our custom migrations
+
+```bash
+$ npm run migrate-custom
+```
+
+#### Seed your database
 
 If you don't want to start using the app from scratch, you can seed your database with some famous genres and movies:
 
@@ -73,10 +90,10 @@ $ npm run start:dev
 
 ### Functionality
 
-- The TechWave Movie API is a simple RESTful API designed to manage a movie database.
-- The API provides essential CRUD operations for movies and genres, allowing users to interact with the movie data seamlessly. Users can list all movies, add new movies with attributes such as title, description, release date, and genre, update existing movie details, and delete specific movies from the database. Similarly, users can manage genres by listing, adding, and deleting genres. Deleting a genre also removes it from all associated movies.
-- The API supports searching for movies by title or genre and offers pagination to navigate through large lists of movies.
-- In addition, it includes request logging middleware, robust data validation, and error handling to ensure secure and efficient interactions.
+-   The TechWave Movie API is a simple RESTful API designed to manage a movie database.
+-   The API provides essential CRUD operations for movies and genres, allowing users to interact with the movie data seamlessly. Users can list all movies, add new movies with attributes such as title, description, release date, and genre, update existing movie details, and delete specific movies from the database. Similarly, users can manage genres by listing, adding, and deleting genres. Deleting a genre also removes it from all associated movies.
+-   The API supports searching for movies by title or genre and offers pagination to navigate through large lists of movies.
+-   In addition, it includes request logging middleware, robust data validation, and error handling to ensure secure and efficient interactions.
 
 ### API Endpoints
 
