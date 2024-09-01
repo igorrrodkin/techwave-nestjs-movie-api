@@ -4,13 +4,13 @@ TechWave Movie API is a simple movie management service built using NestJS. This
 
 ## Table of Contents
 
-1. [How to Run the Application](#how-to-run-the-application)
-2. [Functionality](#functionality)
-3. [API Endpoints](#api-endpoints)
+1. [Prerequisites](#prerequisites)
+2. [Database](#database)
+3. [Run the Application](#run-the-application)
+4. [Functionality](#functionality)
+5. [API Endpoints](#api-endpoints)
 
-## How to Run the Application
-
-### Prerequisites
+## Prerequisites
 
 Ensure you have the following installed:
 
@@ -18,7 +18,7 @@ Ensure you have the following installed:
 -   NPM
 -   Docker
 
-### Installation
+### Dependencies installation
 
 After you cloned the repository, make sure to install dependencies. I used **npm** package manager however you can use **yarn**, **pnpm** etc. as well.
 
@@ -26,7 +26,7 @@ After you cloned the repository, make sure to install dependencies. I used **npm
 $ npm install
 ```
 
-### Database
+### Database creation
 
 Since there is not a production project I've run my PostgreSQL database locally in Docker container.
 
@@ -77,7 +77,9 @@ If you don't want to start using the app from scratch, you can seed your databas
 $ npm run seed
 ```
 
-### Run the project
+## Run the Application
+
+After previous steps are done, the application can be run
 
 ```bash
 # development
@@ -88,13 +90,13 @@ $ npm run start:dev
 
 ```
 
-### Functionality
+## Functionality
 
 -   The TechWave Movie API is a simple RESTful API designed to manage a movie database.
 -   The API provides essential CRUD operations for movies and genres, allowing users to interact with the movie data seamlessly. Users can list all movies, add new movies with attributes such as title, description, release date, and genre, update existing movie details, and delete specific movies from the database. Similarly, users can manage genres by listing, adding, and deleting genres. Deleting a genre also removes it from all associated movies.
 -   The API supports searching for movies by title or genre and offers pagination to navigate through large lists of movies.
 -   In addition, it includes request logging middleware, robust data validation, and error handling to ensure secure and efficient interactions.
 
-### API Endpoints
+## API Endpoints
 
 After you application is running you can find its OpenAPI documentation via [http://localhost:3000/api](http://localhost:3000/api) endpoint (Assuming your application is running on this port).
